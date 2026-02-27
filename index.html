@@ -111,18 +111,24 @@
             margin-bottom: 15px;
         }
         ol { padding-left: 20px; color: #555; line-height: 1.8; margin-bottom: 15px; }
-        .btn-fb {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: #007bff;
-            border: 1px solid #007bff;
-            padding: 7px 15px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
+        
+        /* Hiệu ứng cho hình ảnh Voucher */
+        .voucher-container {
+            margin-top: 15px;
+            text-align: center;
+            border-top: 1px dashed #ddd;
+            padding-top: 20px;
         }
+        .voucher-img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .voucher-img:hover {
+            transform: scale(1.02);
+        }
+
         #result-box {
             display: none;
             margin-top: 20px;
@@ -168,8 +174,12 @@
             <ol>
                 <li>Sau khi tạo link, nhấn <b>Sao chép link</b>.</li>
                 <li>Copy link vừa tạo và paste vào phần comment 1 bài viết bất kì trong trang cá nhân Facebook.</li>
-                <li>Sau khi paste xong thì bấm mua trực tiếp từ link đó là có mã</b>.</li>
+                <li>Sau khi paste xong thì bấm mua trực tiếp từ link đó là có mã.</li>
             </ol>
+
+            <div class="voucher-container">
+                <img src="voucher fb.jpg" alt="Chi tiết mã giảm giá" class="voucher-img">
+            </div>
         </div>
     </div>
 
@@ -179,22 +189,18 @@
             const resultBox = document.getElementById('result-box');
             const linkDisplay = document.getElementById('finalLinkDisplay');
 
-            // --- ĐIỀN MÃ ID AFFILIATE CỦA BẠN VÀO ĐÂY ---
+            // ID của bạn đã được giữ nguyên
             const myAffiliateId = "17367270418"; 
-            // -------------------------------------------
 
             if (rawUrl.includes("shopee.vn")) {
-                // Tạo link redirect chuẩn Shopee Affiliate + Gắn tag Live qua sub_id
                 const encodedUrl = encodeURIComponent(rawUrl);
                 const processedLink = `https://s.shopee.vn/an_redir?origin_link=${encodedUrl}&affiliate_id=${myAffiliateId}&sub_id=addlivetag-san-sale`;
 
                 linkDisplay.innerText = processedLink;
                 resultBox.style.display = "block";
-                
-                // Cuộn xuống xem kết quả
                 resultBox.scrollIntoView({ behavior: 'smooth' });
             } else {
-                alert("Vui lòng dán link Shopee hợp lệ (ví dụ: shopee.vn/...)");
+                alert("Vui lòng dán link Shopee hợp lệ!");
             }
         }
 
