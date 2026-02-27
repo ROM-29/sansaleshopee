@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tạo Link Shopee - Công Cụ Săn Sale Miễn Phí</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --shopee-orange: #ee4d2d;
+            --bg-gradient: linear-gradient(180deg, #f9b19b 0%, #f7dcd5 100%);
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-gradient);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .header-title {
+            color: white;
+            font-size: 26px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.1);
+        }
+        .domain-tag {
+            background: rgba(255, 255, 255, 0.4);
+            color: #d14124;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+        .main-card {
+            background: white;
+            width: 100%;
+            max-width: 450px;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .input-section {
+            padding: 25px;
+        }
+        .label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 12px;
+        }
+        .input-group {
+            display: flex;
+            border: 1.5px solid #eee;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            background: #fff;
+        }
+        input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            outline: none;
+            font-size: 15px;
+        }
+        .clear-btn {
+            padding: 15px;
+            background: #fdfdfd;
+            border: none;
+            cursor: pointer;
+            color: #999;
+        }
+        .btn-generate {
+            width: 100%;
+            padding: 16px;
+            background: var(--shopee-orange);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.1s;
+        }
+        .btn-generate:active { transform: scale(0.98); }
+
+        .guide-section {
+            background: #f8fbff;
+            padding: 20px 25px;
+            border-top: 1px solid #f0f4f8;
+        }
+        .guide-title {
+            color: #007bff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        ol { padding-left: 20px; color: #555; line-height: 1.8; margin-bottom: 15px; }
+        .btn-fb {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #007bff;
+            border: 1px solid #007bff;
+            padding: 7px 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        #result-box {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff4f2;
+            border: 1px dashed var(--shopee-orange);
+            border-radius: 12px;
+        }
+        .copy-success { color: #28a745; font-size: 12px; margin-top: 5px; display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="header-title">
+        <i class="fa-solid fa-link"></i> Tạo Link Shopee
+    </div>
+    <div class="domain-tag">Săn Sale Thông Minh</div>
+
+    <div class="main-card">
+        <div class="input-section">
+            <div class="label"><i class="fa-solid fa-briefcase"></i> Link sản phẩm Shopee</div>
+            <div class="input-group">
+                <input type="text" id="shopeeUrl" placeholder="Dán link Shopee vào đây...">
+                <button class="clear-btn" onclick="document.getElementById('shopeeUrl').value=''"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <button class="btn-generate" onclick="generateAffiliateLink()">
+                <i class="fa-solid fa-pencil"></i> Tạo Link Ngay
+            </button>
+
+            <div id="result-box">
+                <p style="font-size: 14px; margin: 0 0 8px 0;">Link của bạn đã gắn mã giảm giá:</p>
+                <div id="finalLinkDisplay" style="font-size: 12px; color: #ee4d2d; word-break: break-all; margin-bottom: 10px;"></div>
+                <button onclick="copyToClipboard()" style="width:100%; padding:10px; border-radius:8px; border:1px solid #333; cursor:pointer; background:white;">
+                    <i class="fa-solid fa-copy"></i> Sao chép link
+                </button>
+                <div id="copyMsg" class="copy-success">Đã sao chép vào bộ nhớ tạm!</div>
+            </div>
+        </div>
+
+        <div class="guide-section">
+            <div class="guide-title"><i class="fa-solid fa-circle-info"></i> Hướng dẫn</div>
+            <ol>
+                <li>Sau khi tạo link, nhấn <b>Sao chép link</b>.</li>
+                <li>Dán link vào trình duyệt hoặc gửi cho bạn bè.</li>
+                <li>Mở ứng dụng Shopee để nhận mã giảm giá <b>25% - 50%</b>.</li>
+            </ol>
+            <a href="#" class="btn-fb"><i class="fa-brands fa-facebook"></i> Đến bài đăng Facebook</a>
+        </div>
+    </div>
+
+    <script>
+        function generateAffiliateLink() {
+            const rawUrl = document.getElementById('shopeeUrl').value.trim();
+            const resultBox = document.getElementById('result-box');
+            const linkDisplay = document.getElementById('finalLinkDisplay');
+
+            // --- ĐIỀN MÃ ID AFFILIATE CỦA BẠN VÀO ĐÂY ---
+            const myAffiliateId = "17367270418"; 
+            // -------------------------------------------
+
+            if (rawUrl.includes("shopee.vn")) {
+                // Tạo link redirect chuẩn Shopee Affiliate + Gắn tag Live qua sub_id
+                const encodedUrl = encodeURIComponent(rawUrl);
+                const processedLink = `https://s.shopee.vn/an_redir?origin_link=${encodedUrl}&affiliate_id=${myAffiliateId}&sub_id=addlivetag-san-sale`;
+
+                linkDisplay.innerText = processedLink;
+                resultBox.style.display = "block";
+                
+                // Cuộn xuống xem kết quả
+                resultBox.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                alert("Vui lòng dán link Shopee hợp lệ (ví dụ: shopee.vn/...)");
+            }
+        }
+
+        function copyToClipboard() {
+            const text = document.getElementById('finalLinkDisplay').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const msg = document.getElementById('copyMsg');
+                msg.style.display = "block";
+                setTimeout(() => msg.style.display = "none", 2000);
+            });
+        }
+    </script>
+</body>
+</html>
