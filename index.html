@@ -3,7 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tạo Link Shopee - Công Cụ Săn Sale Miễn Phí</title>
+    
+    <link rel="icon" type="image/png" href="favicon.png" sizes="32x32">
+    <link rel="apple-touch-icon" href="favicon.png">
+
+    <title>Săn Sale Cùng Tui - Công Cụ Tạo Link Shopee Giảm Giá</title>
+    
+    <meta name="description" content="Công cụ hỗ trợ gắn mã giảm giá Shopee miễn phí. Giúp bạn săn sale nhanh chóng, tiết kiệm và hiệu quả hơn cùng Săn Sale Cùng Tui.">
+    <meta property="og:title" content="Săn Sale Cùng Tui - Tạo Link Shopee Có Mã Giảm Giá">
+    <meta property="og:description" content="Dán link sản phẩm, tạo link mới và nhận ngay ưu đãi cực hời từ Shopee.">
+    <meta property="og:image" content="favicon.png">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
@@ -112,7 +122,6 @@
         }
         ol { padding-left: 20px; color: #555; line-height: 1.8; margin-bottom: 15px; }
         
-        /* Hiệu ứng cho hình ảnh Voucher */
         .voucher-container {
             margin-top: 15px;
             text-align: center;
@@ -188,8 +197,6 @@
             const rawUrl = document.getElementById('shopeeUrl').value.trim();
             const resultBox = document.getElementById('result-box');
             const linkDisplay = document.getElementById('finalLinkDisplay');
-
-            // ID của bạn đã được giữ nguyên
             const myAffiliateId = "17367270418"; 
 
             if (rawUrl.includes("shopee.vn")) {
