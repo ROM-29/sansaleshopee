@@ -193,24 +193,47 @@
     </div>
 
     <script>
-        function generateAffiliateLink() {
+        // Sử dụng hàm async để chờ máy chủ Google phản hồi
+        async function generateAffiliateLink() {
             const rawUrl = document.getElementById('shopeeUrl').value.trim();
             const resultBox = document.getElementById('result-box');
             const linkDisplay = document.getElementById('finalLinkDisplay');
             const myAffiliateId = "17367270418";
 
-            // Sửa điều kiện để chấp nhận cả link shopee.vn và shp.ee
-            if (rawUrl.includes("shopee.vn") || rawUrl.includes("shp.ee")) {
-                const encodedUrl = encodeURIComponent(rawUrl);
-                // Sử dụng cấu trúc link Affiliate chuẩn cho cả link rút gọn
-                const processedLink = `https://s.shopee.vn/an_redir?origin_link=${encodedUrl}&affiliate_id=${myAffiliateId}&sub_id=addlivetag-san-sale`;
+            // Link API máy chủ Google Apps Script của bạn
+            const myGasApi = "https://script.google.com/macros/s/AKfycbwoRXu4dkCOy0xAUX0kx1PbIKEHcjKvORPQt9UNKcw1HQWmSydpFVXlxFQM6KUixllhqw/exec";
 
-                linkDisplay.innerText = processedLink;
+            if (rawUrl.includes("shopee.vn") || rawUrl.includes("shp.ee")) {
+                
+                // Hiển thị trạng thái đang xử lý cho khách hàng yên tâm
+                linkDisplay.innerText = "⏳ Đang kết nối lấy mã giảm giá, đợi xíu nha...";
                 resultBox.style.display = "block";
                 resultBox.scrollIntoView({ behavior: 'smooth' });
+
+                try {
+                    // Gửi link lên API để bung link gốc
+                    const response = await fetch(`${myGasApi}?url=${encodeURIComponent(rawUrl)}`);
+                    const data = await response.json();
+
+                    if(data.success) {
+                        const longUrl = data.expanded;
+                        const encodedLongUrl = encodeURIComponent(longUrl);
+                        
+                        // Ghép link dài vào cấu trúc Affiliate
+                        const processedLink = `https://s.shopee.vn/an_redir?origin_link=${encodedLongUrl}&affiliate_id=${myAffiliateId}&sub_id=addlivetag-san-sale`;
+
+                        linkDisplay.innerText = processedLink;
+                    } else {
+                        alert("Ui da! Có lỗi khi giải mã link này. Thử lại nha.");
+                        linkDisplay.innerText = "Lỗi xử lý link.";
+                    }
+                } catch (error) {
+                    alert("Lỗi kết nối. Bạn thử tải lại trang web nhé!");
+                    linkDisplay.innerText = "Lỗi kết nối máy chủ.";
+                }
+
             } else {
-                // Tối ưu lời nhắc chi tiết hơn
-                alert("Link không hợp lệ! Vui lòng dán link Shopee đúng định dạng (ví dụ: shopee.vn/... hoặc vn.shp.ee/...)");
+                alert("Link không hợp lệ! Vui lòng dán link Shopee đúng định dạng (ví dụ: https://shopee.vn/... hoặc https://vn.shp.ee/...)");
             }
         }
 
