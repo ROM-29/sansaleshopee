@@ -197,19 +197,20 @@
             const rawUrl = document.getElementById('shopeeUrl').value.trim();
             const resultBox = document.getElementById('result-box');
             const linkDisplay = document.getElementById('finalLinkDisplay');
-            const myAffiliateId = "17367270418"; 
+            const myAffiliateId = "17367270418";
 
-            // Đã sửa để chấp nhận cả shopee.vn và shp.ee
+            // Sửa điều kiện để chấp nhận cả link shopee.vn và shp.ee
             if (rawUrl.includes("shopee.vn") || rawUrl.includes("shp.ee")) {
                 const encodedUrl = encodeURIComponent(rawUrl);
+                // Sử dụng cấu trúc link Affiliate chuẩn cho cả link rút gọn
                 const processedLink = `https://s.shopee.vn/an_redir?origin_link=${encodedUrl}&affiliate_id=${myAffiliateId}&sub_id=addlivetag-san-sale`;
 
                 linkDisplay.innerText = processedLink;
                 resultBox.style.display = "block";
                 resultBox.scrollIntoView({ behavior: 'smooth' });
             } else {
-                // Thông báo lỗi chi tiết hơn cho người dùng
-                alert("Link không hợp lệ! Vui lòng dán link Shopee đúng định dạng (ví dụ: https://shopee.vn/... hoặc link từ App https://vn.shp.ee/...)");
+                // Tối ưu lời nhắc chi tiết hơn
+                alert("Link không hợp lệ! Vui lòng dán link Shopee đúng định dạng (ví dụ: shopee.vn/... hoặc vn.shp.ee/...)");
             }
         }
 
