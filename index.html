@@ -160,7 +160,7 @@
         <div class="input-section">
             <div class="label"><i class="fa-solid fa-briefcase"></i> Link sản phẩm Shopee</div>
             <div class="input-group">
-                <input type="text" id="shopeeUrl" placeholder="Dán link vn.shp.ee hoặc shopee.vn...">
+                <input type="text" id="shopeeUrl" placeholder="Dán link sản phẩm Shopee tại đây...">
                 <button class="clear-btn" onclick="document.getElementById('shopeeUrl').value=''"><i class="fa-solid fa-xmark"></i></button>
             </div>
             
@@ -197,9 +197,9 @@
             const rawUrl = document.getElementById('shopeeUrl').value.trim();
             const resultBox = document.getElementById('result-box');
             const linkDisplay = document.getElementById('finalLinkDisplay');
-            const myAffiliateId = "17367270418"; 
+            const myAffiliateId = "17367270418";
 
-            // Đã sửa: Chấp nhận cả link rút gọn shp.ee của khách hàng
+            // Sửa điều kiện để chấp nhận cả link shopee.vn và shp.ee
             if (rawUrl.includes("shopee.vn") || rawUrl.includes("shp.ee")) {
                 const encodedUrl = encodeURIComponent(rawUrl);
                 const processedLink = `https://s.shopee.vn/an_redir?origin_link=${encodedUrl}&affiliate_id=${myAffiliateId}&sub_id=addlivetag-san-sale`;
@@ -208,7 +208,8 @@
                 resultBox.style.display = "block";
                 resultBox.scrollIntoView({ behavior: 'smooth' });
             } else {
-                alert("Vui lòng dán link Shopee hợp lệ (ví dụ: shopee.vn hoặc vn.shp.ee)!");
+                // Tối ưu câu thông báo lỗi chi tiết hơn
+                alert("Link không hợp lệ! Vui lòng dán link Shopee đúng định dạng (ví dụ: https://shopee.vn/... hoặc link rút gọn https://vn.shp.ee/...)");
             }
         }
 
