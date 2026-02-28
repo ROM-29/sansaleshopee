@@ -160,7 +160,7 @@
         <div class="input-section">
             <div class="label"><i class="fa-solid fa-briefcase"></i> Link sản phẩm Shopee</div>
             <div class="input-group">
-                <input type="text" id="shopeeUrl" placeholder="Dán link Shopee vào đây...">
+                <input type="text" id="shopeeUrl" placeholder="Dán link vn.shp.ee hoặc shopee.vn...">
                 <button class="clear-btn" onclick="document.getElementById('shopeeUrl').value=''"><i class="fa-solid fa-xmark"></i></button>
             </div>
             
@@ -182,8 +182,8 @@
             <div class="guide-title"><i class="fa-solid fa-circle-info"></i> Hướng dẫn</div>
             <ol>
                 <li>Sau khi tạo link, nhấn <b>Sao chép link</b>.</li>
-                <li>Copy link vừa tạo và paste vào phần comment 1 bài viết bất kì trong trang cá nhân Facebook.</li>
-                <li>Sau khi paste xong thì bấm mua trực tiếp từ link đó là có mã.</li>
+                <li>Dán link vào bình luận bài viết Facebook cá nhân/nhóm.</li>
+                <li>Bấm vào link đó từ Facebook để Shopee tự động kích hoạt mã giảm giá.</li>
             </ol>
 
             <div class="voucher-container">
@@ -199,7 +199,8 @@
             const linkDisplay = document.getElementById('finalLinkDisplay');
             const myAffiliateId = "17367270418"; 
 
-            if (rawUrl.includes("shopee.vn")) {
+            // Đã sửa: Chấp nhận cả link rút gọn shp.ee của khách hàng
+            if (rawUrl.includes("shopee.vn") || rawUrl.includes("shp.ee")) {
                 const encodedUrl = encodeURIComponent(rawUrl);
                 const processedLink = `https://s.shopee.vn/an_redir?origin_link=${encodedUrl}&affiliate_id=${myAffiliateId}&sub_id=addlivetag-san-sale`;
 
@@ -207,7 +208,7 @@
                 resultBox.style.display = "block";
                 resultBox.scrollIntoView({ behavior: 'smooth' });
             } else {
-                alert("Vui lòng dán link Shopee hợp lệ!");
+                alert("Vui lòng dán link Shopee hợp lệ (ví dụ: shopee.vn hoặc vn.shp.ee)!");
             }
         }
 
