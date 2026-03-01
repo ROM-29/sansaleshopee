@@ -147,6 +147,24 @@
             border-radius: 12px;
         }
         .copy-success { color: #28a745; font-size: 12px; margin-top: 5px; display: none; }
+        
+        /* CSS cho hiệu ứng nhấp nháy thu hút sự chú ý */
+        @keyframes pulse-alert {
+            0% { box-shadow: 0 0 0 0 rgba(238, 77, 45, 0.4); }
+            70% { box-shadow: 0 0 0 6px rgba(238, 77, 45, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(238, 77, 45, 0); }
+        }
+        .attention-box {
+            background-color: #fff4f2;
+            border-left: 4px solid #ee4d2d;
+            padding: 12px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: #333;
+            border-radius: 4px;
+            line-height: 1.5;
+            animation: pulse-alert 2s infinite;
+        }
     </style>
 </head>
 <body>
@@ -185,6 +203,10 @@
                 <li>Dán link vào phần bình luận của một bài viết bất kì trong trang cá nhân Facebook.</li>
                 <li>Bấm vào link đó từ Facebook để Shopee tự động kích hoạt mã giảm giá.</li>
             </ol>
+
+            <div class="attention-box">
+                <b><i class="fa-solid fa-bell" style="color: #ee4d2d;"></i> Chú ý:</b> Mã giảm 25% sẽ back vào lúc 00h, 9h, 12h, 15h, 18h, 21h hàng ngày.
+            </div>
 
             <div class="voucher-container">
                 <img src="voucher fb.jpg" alt="Chi tiết mã giảm giá" class="voucher-img">
